@@ -2,12 +2,35 @@ import React from "react";
 import Note from "../Notes/Note";
 import "./NoteContainer.css";
 
-function NoteContainer() {
+function NoteContainer({ notes, deleteNote, updateNote }) {
+  const reverArray = (arr) => {
+    const array = [];
+
+    for (let i = arr.length - 1; i >= 0; --i) {
+      array.push(arr[i]);
+    }
+
+    return array;
+  };
+
+  // const notes = reverArray(notes);
   return (
     <div className="note-container">
       <h2>Notes</h2>
       <div className="note-container_notes custom-scroll">
-        <Note note={{ text: "Hello", time: "4.32PM", color: "cyan" }} />
+        {notes?.length > 0 ? (
+          notes.map((item) => (
+            <Note
+              key={item.id}
+              note={item}
+              deleteNote={deleteNote}
+              updateNote={updateNote}
+            />
+          ))
+        ) : (
+          <h3>No Notes present</h3>
+        )}
+        {/* <Note note={{ text: "Hello", time: "4.32PM", color: "cyan" }} /> */}
       </div>
     </div>
   );
